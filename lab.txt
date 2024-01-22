@@ -1,0 +1,9 @@
+mongosh
+use demo
+show dbs
+db.dropDatabase()
+db.createCollection("employee")
+show collections
+db.employee.drop()
+db.createCollection("student", {capped:true, size:100000, max:10000})
+db.student.insert({name:"Abc"})
