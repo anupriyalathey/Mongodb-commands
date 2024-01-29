@@ -7,3 +7,55 @@ show collections
 db.employee.drop()
 db.createCollection("student", {capped:true, size:100000, max:10000})
 db.student.insert({name:"Abc"})
+
+INSERT DOCUMENTS IN A COLLECTION
+ db.student.insertOne(
+...   {
+...     name: "Sanya",
+...     gender: "Female",
+...     age: 10,
+...     class: 5,
+...   }
+... )
+
+ db.student.insertMany([
+...    {
+...     name: "Rajat",
+...     gender: "Male",
+...     age: 15,
+...     class: 10,
+...     },
+...     {
+...     name: "Mohit",
+...     gender: "Male",
+...     age: 13,
+...     class: 8,
+...     }
+... ])
+
+RETRIEVE DOCUMENTS IN A COLLECTION
+db.student.find()
+
+RETRIEVE USING-
+LOGICAL OPERATOR
+db.student.find( { gender: "Male", class: { $gte: 9 } } )
+db.student.find( {
+...      $or: [ { class: { $gte: 9 } }, { gender: "Female" } ]
+... } )
+db.student.find({name: {$not:{$eq: "Rajat"}}})
+db.student.find({$nor:[{name: "Rajat"}, {name: "Sanya"}]})
+
+COMPARISON OPERATOR
+db.student.find({class: {$eq: 8}})
+db.student.find({class: {$ne:8}})
+db.student.find({class: {$gt: 8}})
+db.student.find({class: {$gte: 8}})
+db.student.find({class: {$lt: 8}})
+db.student.find({class: {$lte: 8}})
+db.student.find({class: {$in:[5, 8]}})
+db.student.find({class: {$nin:[5, 8]}})
+
+ELEMENT OPERATOR
+db.student.find( { gender: { $exists: true } } )
+db.student.find( { "class" : { $type : "double" } } ) -> No output
+db.student.find( { "class" : { $type : "int" } } ) -> All values
