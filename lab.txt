@@ -59,3 +59,18 @@ ELEMENT OPERATOR
 db.student.find( { gender: { $exists: true } } )
 db.student.find( { "class" : { $type : "double" } } ) -> No output
 db.student.find( { "class" : { $type : "int" } } ) -> All values
+
+ARRAY OPERATOR
+db.student.find( { gender: { $all: ["Male"]}})
+db.student.find({subjects: {$elemMatch: {$in:["Maths", "Science"]}}})
+db.student.find({subjects: {$size: 3}})
+
+UPDATE
+db.student.updateOne({name: 'Rajat'}, {$set: {class: 9}})
+db.student.updateMany({name: 'Rajat'}, {$set: {class: 10, age: 17}})
+db.student.replaceOne({name: 'Sanya'}, {name:'Sarthak', gender: 'Male', class: 9, age: 16})
+
+DELETE
+db.student.deleteOne({age: 10})
+db.student.deleteMany({age: 10})
+db.student.remove({age: 10}) // Deprecated
