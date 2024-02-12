@@ -74,3 +74,23 @@ DELETE
 db.student.deleteOne({age: 10})
 db.student.deleteMany({age: 10})
 db.student.remove({age: 10}) // Deprecated
+
+NESTED QUERIES
+db.student.insertMany( [ 
+   { name: "Rohit", marks: [ { subject: "English", qty: 95 }, { subject: "Maths", qty: 89 } ] },
+   { name: "Renu", marks: [ { subject: "English", qty: 77 } ] }
+]);
+
+db.student.find({marks: {subject: 'English', qty: 95}})
+db.student.find({"marks.qty": {$lte:90}})
+db.student.find({"marks.0.qty": {$lte:80}})
+
+db.student.insertMany( [ 
+   { name: "Priya", marks: [ { subject: "English", qty: 55 }, { subject: "Maths", qty: 71 }, { subject: "Science", qty: 95 }, { subject: "Sst", qty: 65 } ] },
+   { name: "Tanu", marks: [ { subject: "English", qty: 63 }, { subject: "Maths", qty: 88 }, { subject: "Science", qty: 86 }, { subject: "Sst", qty: 59 } ] }
+])
+ 
+db.student.find({"marks": {$elemMatch: {qty:95, subject: "Science"}}})
+db.student.find({"marks": {$elemMatch: {qty: { $gt: 60, $lt: 80}}}})
+db.student.find({"marks.qty": {$gt: 60, $lt: 80}})
+db.student.find({"marks.qty": 88, "marks.subject": "Sst"})
