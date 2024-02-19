@@ -94,3 +94,10 @@ db.student.find({"marks": {$elemMatch: {qty:95, subject: "Science"}}})
 db.student.find({"marks": {$elemMatch: {qty: { $gt: 60, $lt: 80}}}})
 db.student.find({"marks.qty": {$gt: 60, $lt: 80}})
 db.student.find({"marks.qty": 88, "marks.subject": "Sst"})
+
+UPDATE OPERATORS
+db.student.updateOne({name: "Sanya"},{$inc: {age: 2, class:2}})
+db.student.updateOne({ name: 'Tanu', "marks.subject": 'Maths' }, { $mul: { "marks.$.qty": 0.5 }})
+db.student.updateMany({ gender: { $ne: null } },{ $rename: { gender: "Gender" }})
+db.student.updateOne( { "First-Name": 'Priya', "marks.subject": 'English' }, { $set: { "marks.$.qty": 80 } } )
+db.student.updateOne( { "First-Name": 'Priya', "marks.subject": 'English' }, { $unset: { "marks.$.qty": "" } } )
