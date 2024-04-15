@@ -108,3 +108,15 @@ db.student.updateOne({Gender: 'Male'}, {$pop: {subjects: -1}})
 db.student.updateOne({Gender: 'Male'} , {$pull: {subjects: {$in: ["English", "Maths"]}}})
 db.student.updateOne({Gender: 'Male'} , {$pullAll: {subjects: ["French", "Maths"]}})
 db.student.updateOne({Gender: 'Male'} , {$addToSet: {subjects: "French"}})
+
+INDEXING
+db.student.getIndexes()
+db.student.createIndex({class: -1}) //Descending // Single
+db.student.createIndex({"marks.qty": -1}) // Embedded Field
+db.student.createIndex({"subjects":1}) // Embedded Doc
+db.student.createIndex({class: -1, age: 1}) // Compound Index
+
+db.student.dropIndex("marks.qty_-1") // Drop Index
+db.student.dropIndexes() // Drop all indexes except Id
+db.collection.dropIndexes( { a: 1, b: 1 } )
+db.collection.dropIndexes( "a_1_b_1" )
